@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitoring Kebun</title>
+    <title>Monitoring Kebun - Kendal</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -12,40 +11,42 @@
 
 <body>
     <div class="header">
-
         <div class="left">
-            <h2>Kontrol ESP32</h2>
-            <button class="btn-left btn-on" onclick="sendCommand('start')">START</button>
-            <button class="btn-left btn-off"onclick="sendCommand('stop')">STOP</button>
+            <h2>Kontrol Sistem</h2>
+            <button class="btn-left btn-on" onclick="sendCommand('START')">START</button>
+            <button class="btn-left btn-off" onclick="sendCommand('STOP')">STOP</button>
         </div>
         
         <div class="right">
-            <h3>Kontrol Pompa Manual</h3>
+            <h3>Pompa Manual</h3>
             <button class="btn-right btn-on" onclick="sendPumpCommand('ON')">ON</button>
-            <button class="btn-right btn-off" onclick="sendPumpCommand('OFF')" >OFF</button>
+            <button class="btn-right btn-off" onclick="sendPumpCommand('OFF')">OFF</button>
         </div>
     </div>
-    <h3 id="sensorData">Menunggu data...</h3>
 
-    <div style="width: 100%; margin: auto; margin-bottom: 1.5rem;">
+    <h3 id="sensorData">Menunggu data dari kebun...</h3>
+
+    <div style="width: 100%; max-width: 800px; margin: auto; margin-bottom: 1.5rem;">
         <canvas id="moistureChart"></canvas>
     </div>
 
-    <label for="duration">Pilih Durasi Tampilan Grafik:</label>
+    <label for="duration">Pilih Durasi Grafik:</label>
     <select class="duration" id="duration" onchange="updateMaxData()">
         <option value="30">1 Menit</option>
         <option value="1800">1 Jam</option>
         <option value="21600">12 Jam</option>
     </select>
 
-    <h3>Riwayat 10 Data Terbaru</h3>
-    <table id="tabelData"></table>
+    <h3>Riwayat 10 Data Terakhir</h3>
+    <table id="tabelData" border="1"></table>
 
+    <br>
     <label>Unduh Riwayat:</label>
     <select class="filterWaktu" id="filterWaktu">
         <option value="86400000">1 Hari Terakhir</option>
         <option value="604800000">1 Minggu Terakhir</option>
     </select>
+    
     <div class="button-container">
         <button onclick="downloadFilteredJSON()">Download JSON</button>
         <button onclick="downloadFilteredCSV()">Download Excel (CSV)</button>
@@ -53,5 +54,4 @@
 
     <script src="script.js"></script>
 </body>
-
 </html>
